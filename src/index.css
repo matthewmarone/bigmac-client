@@ -1,13 +1,40 @@
+html,
 body {
+  height: 100%;
+  width: 100%;
+  padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+body,
+#root,
+div.App {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+}
+
+/* body {
+  background-image: url("images/big-mac-background.png");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: auto;
+  background-attachment: fixed;
+} */
+
+.App {
+  padding: 16px;
+}
+
+.App-header {
+  height: 75px;
+}
+
+.App-main {
+  flex: auto;
+}
+
+.App-footer {
+  height: 25px;
 }
