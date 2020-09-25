@@ -20,7 +20,6 @@ const BigMacCalculator = () => {
   const randomNumberOfBigMacs = 75;
 
   const handleLocalAmountChange = useCallback((amt) => {
-      console.log(amt)
     setLocalAmount(amt > 0 ? amt : 0);
   }, []);
 

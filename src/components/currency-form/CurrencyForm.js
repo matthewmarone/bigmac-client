@@ -21,9 +21,12 @@ const CurrencyForm = (props) => {
     align = "inherit",
   } = props;
 
-  const handleChange = useCallback((e) => {
-    onAmountChange(parseFloat(e.target.value));
-  }, [onAmountChange]);
+  const handleChange = useCallback(
+    (e) => {
+      onAmountChange(parseFloat(e.target.value));
+    },
+    [onAmountChange]
+  );
 
   return (
     <div>
@@ -42,7 +45,7 @@ const CurrencyForm = (props) => {
           type="number"
           color="secondary"
           autoFocus={autoFocus}
-          value={amount}
+          value={"" + amount}
           onChange={handleChange}
           startAdornment={<InputAdornment position="start">$</InputAdornment>}
         />
