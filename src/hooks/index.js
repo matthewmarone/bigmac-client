@@ -1,0 +1,1 @@
+export { useIPAddress } from "./bigMacAppHooks";
