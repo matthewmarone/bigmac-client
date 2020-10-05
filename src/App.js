@@ -3,7 +3,10 @@ import { Container, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { BigMacCalculator } from "views";
 import { useQuery } from "@apollo/client";
-import { listLatestBigMacIndex as listLatestBigMacIndexGQL } from "graphQL/query";
+import {
+  listLatestBigMacIndex as listLatestBigMacIndexGQL,
+  listSupportedCountries as listSupportedCountriesGQL,
+} from "graphQL/query";
 // import './App.css';
 
 const useStyles = makeStyles({
@@ -11,10 +14,12 @@ const useStyles = makeStyles({
     height: "100%",
   },
 });
+
 function App() {
   const classes = useStyles();
-  // Hydrates the cache
-  useQuery(listLatestBigMacIndexGQL, { fetchPolicy: "cache-and-network" });
+  // Hydrates/refreshes the cache with latest server data
+  useQuery(listLatestBigMacIndexGQL, { fetchPolicy: "network-only" });
+  useQuery(listSupportedCountriesGQL, { fetchPolicy: "network-only" });
 
   return (
     <div className="App">

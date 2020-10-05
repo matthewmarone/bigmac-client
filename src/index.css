@@ -15,13 +15,13 @@ body,
   width: 100%;
 }
 
-/* body {
+body {
   background-image: url("images/big-mac-background.png");
   background-repeat: no-repeat;
   background-position: center center;
   background-size: auto;
   background-attachment: fixed;
-} */
+}
 
 /* .App {
   padding: 16px;
