@@ -26,13 +26,23 @@ import { persistCache } from "apollo3-cache-persist";
       },
     },
   });
+  console.log("here");
+  try {
+    // await before instantiating ApolloClient,
+    // else queries might run before the cache is persisted
+    await persistCache({
+      cache,
+      storage: window.localStorage,
+    });
+  } catch (e) {
+    console.warn(e);
+  }
 
-  // await before instantiating ApolloClient,
-  // else queries might run before the cache is persisted
-  await persistCache({
-    cache,
-    storage: window.localStorage,
-  });
+  console.log("there");
+
+  // Create a new GraphQL client to run queries agienst the big mac
+  // server.  This client also stores results in persisted cache
+  // allowing qurries to be quickly run off the cache after it is hydrated
   const client = new ApolloClient({
     uri: "http://localhost:4000/",
     cache: cache,
@@ -54,3 +64,4 @@ import { persistCache } from "apollo3-cache-persist";
   // Learn more about service workers: https://bit.ly/CRA-PWA
   serviceWorker.unregister();
 })();
+console.log("Start");
