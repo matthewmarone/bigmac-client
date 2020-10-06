@@ -2,7 +2,7 @@ import React, { useState, useCallback } from "react";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import { Grid } from "@material-ui/core";
-import { CurrencyForm, LocalResults, RandomResults } from "components";
+import { CurrencyForm, LocalResults, RandomResults } from "./components";
 import { getMaxNumOfGoodsInForiegnCountry, convertFunds } from "helpers";
 
 const useStyles = makeStyles({
@@ -15,7 +15,7 @@ const useStyles = makeStyles({
  *
  * @param {*} props
  */
-export const Results = (props) => {
+const Results = (props) => {
   const classes = useStyles();
 
   const [localAmount, setLocalAmount] = useState(0);
@@ -99,3 +99,5 @@ Results.propTypes = {
   randomCountry: PropTypes.string.isRequired,
   dollarPriceRandom: PropTypes.number.isRequired,
 };
+
+export default Results;

@@ -13,7 +13,7 @@ const useStyles = makeStyles({
  *
  * @param {*} props
  */
-export const Loading = (props) => {
+const Loading = (props) => {
   const classes = useStyles();
   const { message } = props;
   return (
@@ -39,3 +39,5 @@ export const Loading = (props) => {
 Loading.propTypes = {
   message: PropTypes.string,
 };
+
+export default Loading;
