@@ -10,7 +10,7 @@ import {
 const useCalcState = () => {
   const [ipv4, , ipError, previousIpv4] = useIPAddress();
   const [{ country: localCountry }, setIpv4] = useLocation(previousIpv4);
-  const [randomCountry, setCurrentCountry] = useRandomCountry(localCountry);
+  const [randomCountry, setExcludeList] = useRandomCountry([localCountry]);
   const [localIndex, setLocalIdxCountry] = useCountryBigMacIdx(localCountry);
   const [randomIndex, setRandomIdxCountry] = useCountryBigMacIdx(randomCountry);
 
@@ -21,10 +21,10 @@ const useCalcState = () => {
 
   useEffect(() => {
     if (localCountry) {
-      setCurrentCountry(localCountry);
+      setExcludeList([localCountry]);
       setLocalIdxCountry(localCountry);
     }
-  }, [localCountry, setCurrentCountry, setLocalIdxCountry]);
+  }, [localCountry, setExcludeList, setLocalIdxCountry]);
 
   useEffect(() => {
     if (randomCountry) {

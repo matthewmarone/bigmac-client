@@ -3,11 +3,8 @@ import { Container, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { BigMacCalculator } from "views";
 import { useQuery } from "@apollo/client";
-import {
-  listLatestBigMacIndex as listLatestBigMacIndexGQL,
-  listSupportedCountries as listSupportedCountriesGQL,
-} from "graphQL/query";
-// import './App.css';
+import { listLatestBigMacIndex as listLatestBigMacIndexGQL } from "graphQL/query";
+import { writeSupportedCountriesToCatch } from "helpers";
 
 const useStyles = makeStyles({
   main: {
@@ -17,9 +14,12 @@ const useStyles = makeStyles({
 
 function App() {
   const classes = useStyles();
-  // Hydrates/refreshes the cache with latest server data
-  useQuery(listLatestBigMacIndexGQL, { fetchPolicy: "network-only" });
-  useQuery(listSupportedCountriesGQL, { fetchPolicy: "network-only" });
+  // Hydrates/refreshes the persisted cache with server data
+  const { data, client } = useQuery(listLatestBigMacIndexGQL, {
+    fetchPolicy: "network-only",
+  });
+  // Saves the supported countries to catch in it's on query
+  if (data && client) writeSupportedCountriesToCatch(data, client);
 
   return (
     <div className="App">

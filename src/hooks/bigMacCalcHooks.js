@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useCallback } from "react";
 import PublicIp from "public-ip";
 import { useQuery, useLazyQuery } from "@apollo/client";
 import {
@@ -83,22 +83,26 @@ export const useSupportedCountries = () => {
 
 /**
  *
- * @param {*} currentCountry
+ * @param {*} excludeList
  */
-export const useRandomCountry = (currentCountry) => {
-  const [_currentCountry, setCurrentCountry] = useState(currentCountry);
+export const useRandomCountry = (excludeList = []) => {
+  const [exList, setExludeList] = useState([...excludeList]);
   const countryList = useSupportedCountries();
   const randomCountry = useMemo(() => {
     let c;
     do {
       c = chooseCountry(countryList);
-    } while (c === _currentCountry);
+    } while (exList.includes(c)); // Pick another
     return c;
-  }, [_currentCountry, countryList]);
+  }, [exList, countryList]);
 
+  
+  const _setExcludeList = useCallback((l = []) => {
+    if (l) setExludeList([...l]);
+  }, []);
+  
   // console.log(randomCountry);
-
-  return [randomCountry, setCurrentCountry];
+  return [randomCountry, _setExcludeList];
 };
 
 /**

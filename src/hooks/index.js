@@ -4,4 +4,4 @@ export {
   useLocation,
   useCountryBigMacIdx,
   useSupportedCountries,
-} from "./hooks";
+} from "./bigMacCalcHooks";
