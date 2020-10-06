@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Container, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { BigMacCalculator } from "views";
@@ -18,8 +18,11 @@ function App() {
   const { data, client } = useQuery(listLatestBigMacIndexGQL, {
     fetchPolicy: "network-only",
   });
-  // Saves the supported countries to catch in it's on query
-  if (data && client) writeSupportedCountriesToCatch(data, client);
+
+  useEffect(() => {
+    // Saves the supported countries to catch in it's on query
+    if (data && client) writeSupportedCountriesToCatch(data, client);
+  }, [client, data]);
 
   return (
     <div className="App">

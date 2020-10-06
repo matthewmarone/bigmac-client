@@ -26,7 +26,6 @@ import { persistCache } from "apollo3-cache-persist";
       },
     },
   });
-  console.log("here");
   try {
     // await before instantiating ApolloClient,
     // else queries might run before the cache is persisted
@@ -37,8 +36,6 @@ import { persistCache } from "apollo3-cache-persist";
   } catch (e) {
     console.warn(e);
   }
-
-  console.log("there");
 
   // Create a new GraphQL client to run queries agienst the big mac
   // server.  This client also stores results in persisted cache
@@ -64,4 +61,3 @@ import { persistCache } from "apollo3-cache-persist";
   // Learn more about service workers: https://bit.ly/CRA-PWA
   serviceWorker.unregister();
 })();
-console.log("Start");

@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo, useCallback } from "react";
+import { useState, useEffect, useMemo } from "react";
 import PublicIp from "public-ip";
 import { useQuery, useLazyQuery } from "@apollo/client";
 import {
@@ -35,32 +35,24 @@ export const useIPAddress = () => {
 };
 
 /**
- * This hooks first attempts to
+ *
  * @param {*} ipv4 - ip address to resolve location information for
  */
 export const useLocation = (ipv4) => {
   const [ip, setIpv4] = useState(ipv4);
-  const [locationObj, setLocation] = useState({});
   // GraphQl hook to request location from ip-vigilante
   // Uses persisted cache, if possible
-  const [queryLocation, { data, loading, error }] = useLazyQuery(
-    getLocationGQL
-  );
-
-  useEffect(() => {
-    // Get
-    const { getLocation } = data || {};
-    if (getLocation) {
-      setLocation({ ...getLocation });
-    }
-  }, [data]);
+  const [getLocal, { data, loading, error }] = useLazyQuery(getLocationGQL);
 
   useEffect(() => {
     // Query new loaction when client ip changes
-    if (ip) queryLocation({ variables: { ip } });
-  }, [ip, queryLocation]);
+    if (ip && getLocal) getLocal({ variables: { ip } });
+  }, [ip, getLocal]);
 
-  return [locationObj, setIpv4, loading, error];
+  // console.log(ip, data, loading, error);
+
+  const { getLocation } = data || { getLocation: {} };
+  return [getLocation, setIpv4, loading, error];
 };
 
 /**
@@ -70,15 +62,9 @@ export const useSupportedCountries = () => {
   const { data } = useQuery(listSupportedCountriesGQL);
   const {
     listSupportedCountries: { countries },
-  } = data || { listSupportedCountries: { countries: [] } };
+  } = data || { listSupportedCountries: { countries: null } };
 
-  const [contryList, setCountryList] = useState([...countries]);
-
-  useEffect(() => {
-    if (countries) setCountryList([...countries]);
-  }, [countries]);
-
-  return contryList;
+  return countries;
 };
 
 /**
@@ -86,23 +72,23 @@ export const useSupportedCountries = () => {
  * @param {*} excludeList
  */
 export const useRandomCountry = (excludeList = []) => {
-  const [exList, setExludeList] = useState([...excludeList]);
+  const [exList, setExludeList] = useState(excludeList);
   const countryList = useSupportedCountries();
-  const randomCountry = useMemo(() => {
-    let c;
-    do {
-      c = chooseCountry(countryList);
-    } while (exList.includes(c)); // Pick another
-    return c;
-  }, [exList, countryList]);
 
-  
-  const _setExcludeList = useCallback((l = []) => {
-    if (l) setExludeList([...l]);
-  }, []);
-  
+  const randomCountry = useMemo(() => {
+    if (Array.isArray(exList) && Array.isArray(countryList)) {
+      let c;
+      do {
+        c = chooseCountry(countryList);
+      } while (exList.includes(c)); // Pick another
+      return c;
+    } else {
+      return null;
+    }
+  }, [countryList, exList]);
+
   // console.log(randomCountry);
-  return [randomCountry, _setExcludeList];
+  return [randomCountry, setExludeList];
 };
 
 /**

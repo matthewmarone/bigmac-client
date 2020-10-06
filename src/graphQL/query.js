@@ -4,8 +4,8 @@ export const getLocation = gql`
   query getLocation($ip: String!) {
     getLocation(ip: $ip) {
       id
-      ipv4
       country
+      city
     }
   }
 `;

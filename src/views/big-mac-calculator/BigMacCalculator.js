@@ -7,13 +7,26 @@ import {
   useCountryBigMacIdx,
 } from "hooks";
 
+/**
+ * This hook reacts to changes in user location to produce the clients
+ * local big mac index, and then chooses another country at random and
+ * also returns that random country's current big mac index.
+ *
+ */
 const useCalcState = () => {
   const [ipv4, , ipError, previousIpv4] = useIPAddress();
-  const [{ country: localCountry }, setIpv4] = useLocation(previousIpv4);
+  const [{ country: localCountry }, setIpv4, , lErr] = useLocation(
+    previousIpv4
+  );
   const [randomCountry, setExcludeList] = useRandomCountry([localCountry]);
-  const [localIndex, setLocalIdxCountry] = useCountryBigMacIdx(localCountry);
-  const [randomIndex, setRandomIdxCountry] = useCountryBigMacIdx(randomCountry);
+  const [localIndex, setLocalIdxCountry, , lIndexErr] = useCountryBigMacIdx(
+    localCountry
+  );
+  const [randomIndex, setRandomIdxCountry, , rIndexErr] = useCountryBigMacIdx(
+    randomCountry
+  );
 
+  // This effect runs when the clients ip address changes or becomes known
   useEffect(() => {
     // Querry for currentCountry on IP address change
     if (ipv4 || previousIpv4) setIpv4(ipv4 || previousIpv4);
@@ -33,18 +46,26 @@ const useCalcState = () => {
   }, [randomCountry, setRandomIdxCountry]);
 
   return {
+    localIndex,
+    randomIndex,
     ipv4,
-    ipError,
     previousIpv4,
     localCountry,
     randomCountry,
-    localIndex,
-    randomIndex,
+    ipLookUpError: ipError,
+    locationLookUpError: lErr,
+    localCountryIndexError: lIndexErr,
+    randomCountryIndexError: rIndexErr,
   };
 };
 
 const BigMacCalculator = (props) => {
-  const { ipError, localIndex, randomIndex } = useCalcState();
+  const {
+    localIndex,
+    randomIndex,
+    ipLookUpError,
+    previousIpv4,
+  } = useCalcState();
   const {
     country: localCountry,
     localPrice,
@@ -56,11 +77,13 @@ const BigMacCalculator = (props) => {
     dollarPrice: dollarPriceRandom,
   } = randomIndex;
 
-  if (ipError)
+  if (ipLookUpError) {
+    // In production we could handle the various errors more elegantly
     console.warn(
       "Couldn't get your current location, defaults to last known",
-      ipError
+      previousIpv4
     );
+  }
 
   const isLoading =
     !localCountry ||
