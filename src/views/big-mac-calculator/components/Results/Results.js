@@ -3,7 +3,11 @@ import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import { Grid } from "@material-ui/core";
 import { CurrencyForm, LocalResults, RandomResults } from "./components";
-import { getMaxNumOfGoodsInForiegnCountry, convertFunds } from "helpers";
+import {
+  getHowManyCanYouBuy,
+  getHowManyYouCouldBuyInForiegnCountry,
+  getRealitiveWorthAbroad,
+} from "helpers";
 
 const useStyles = makeStyles({
   root: {
@@ -17,8 +21,13 @@ const useStyles = makeStyles({
  */
 const Results = (props) => {
   const classes = useStyles();
-
+  // Store users currency input
   const [localAmount, setLocalAmount] = useState(0);
+  // Callback to handle currency input change
+  const handleLocalAmountChange = useCallback((amt) => {
+    // Only allow positive currency input
+    setLocalAmount(!isNaN(amt) && amt > 0 ? amt : 0);
+  }, []);
   const {
     localCountry,
     localPrice,
@@ -26,26 +35,27 @@ const Results = (props) => {
     dollarPPP,
     dollarPriceRandom,
     randomCountry,
-  } = props;
+  } = props; // All these props are required as specified by PropTypes
 
-  const localNumberOfBigMacs = Math.floor(localAmount / localPrice);
+  // Calc the number of big macs that can be bought in the current country
+  const localNumberOfBigMacs = getHowManyCanYouBuy(localPrice, localAmount);
 
-  const randomNumberOfBigMacs = getMaxNumOfGoodsInForiegnCountry(
+  // Calc the number of big macs that can be bought in a random country
+  const randomNumberOfBigMacs = getHowManyYouCouldBuyInForiegnCountry(
     localAmount,
     localPrice,
     dollarPrice,
     dollarPriceRandom
   );
 
-  const randomConvertedAmount = convertFunds(
+  // Cacl what the users local amount would "feel like" in the random country
+  // based on the difference in the U.S. dollar price of the Big Mac between the
+  // two countries
+  const randomConvertedAmount = getRealitiveWorthAbroad(
     localAmount,
     dollarPrice,
     dollarPriceRandom
   );
-
-  const handleLocalAmountChange = useCallback((amt) => {
-    setLocalAmount(amt > 0 ? amt : 0);
-  }, []);
 
   return (
     <Grid
@@ -59,6 +69,7 @@ const Results = (props) => {
       }}
     >
       <Grid item xs={12}>
+        {/* Display's top third of page */}
         <CurrencyForm
           country={localCountry}
           amount={localAmount}
@@ -66,6 +77,7 @@ const Results = (props) => {
         />
       </Grid>
       <Grid item xs={12}>
+        {/* Display in middle of page only after user inputs amount */}
         {localAmount === 0 ? (
           ""
         ) : (
@@ -77,11 +89,13 @@ const Results = (props) => {
         )}
       </Grid>
       <Grid item xs={12}>
+        {/* Display in bottom 3rd of page only after user inputs amount */}
         {localAmount === 0 ? (
           ""
         ) : (
           <RandomResults
             country={randomCountry}
+            localCountry={localCountry}
             amount={localAmount}
             amountConverted={randomConvertedAmount}
             numberOfBigMacs={randomNumberOfBigMacs}

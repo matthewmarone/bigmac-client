@@ -1,12 +1,7 @@
-import React, { useCallback } from "react";
+import React from "react";
 import PropTypes from "prop-types";
-import {
-  Typography,
-  FormControl,
-  Input,
-  InputAdornment,
-  InputLabel,
-} from "@material-ui/core";
+import { Typography, FormControl, InputLabel } from "@material-ui/core";
+import { MoneyInput } from "components";
 
 /**
  *
@@ -21,13 +16,6 @@ const CurrencyForm = (props) => {
     align = "inherit",
   } = props;
 
-  const handleChange = useCallback(
-    (e) => {
-      onAmountChange(parseFloat(e.target.value));
-    },
-    [onAmountChange]
-  );
-
   return (
     <div>
       <Typography color="primary" align={align}>
@@ -40,14 +28,15 @@ const CurrencyForm = (props) => {
         <InputLabel htmlFor="amountInput" color="secondary">
           Amount
         </InputLabel>
-        <Input
+        {/* MoneyInput should be imporoved to formate based on country */}
+        {/* and handle decimals better. Ex: 25.5 would display 25.50 */}
+        <MoneyInput
           id="amountInput"
-          type="number"
           color="secondary"
           autoFocus={autoFocus}
-          value={"" + amount}
-          onChange={handleChange}
-          startAdornment={<InputAdornment position="start">$</InputAdornment>}
+          amount={amount}
+          onChange={onAmountChange}
+          country={country}
         />
       </FormControl>
     </div>
@@ -56,7 +45,7 @@ const CurrencyForm = (props) => {
 CurrencyForm.propTypes = {
   country: PropTypes.string.isRequired,
   onAmountChange: PropTypes.func.isRequired,
-  amount: PropTypes.number,
+  amount: PropTypes.number.isRequired,
   autoFocus: PropTypes.bool,
   align: PropTypes.string,
 };

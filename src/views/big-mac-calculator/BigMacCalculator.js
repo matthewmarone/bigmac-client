@@ -25,7 +25,7 @@ const BigMacCalculator = (props) => {
 
   if (ipLookUpError) {
     // In production we could handle more elegantly the various state errors 
-    // useCalState could return.
+    // that useCalState could return.
     console.warn(
       "Couldn't get your current location, defaults to last known",
       previousIpv4

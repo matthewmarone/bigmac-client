@@ -3,7 +3,7 @@ import {
   useIPAddress,
   useLocation,
   useRandomCountry,
-  useCountryBigMacIdx
+  useCountryBigMacIdx,
 } from "hooks";
 
 /**
@@ -35,8 +35,7 @@ export const useCalcState = () => {
   // This effect runs when the clients ip address changes or becomes known
   useEffect(() => {
     // Update the useLocation hook
-    if (ipv4 || previousIpv4)
-      setIpv4(ipv4 || previousIpv4);
+    if (ipv4 || previousIpv4) setIpv4(ipv4 || previousIpv4);
   }, [ipv4, previousIpv4, setIpv4]);
 
   // Runs when the useLocation hook returns a location
@@ -56,6 +55,9 @@ export const useCalcState = () => {
       setRandomIdxCountry(randomCountry);
     }
   }, [randomCountry, setRandomIdxCountry]);
+
+  if (ipError || lErr || lIndexErr || rIndexErr)
+    console.warn(ipError, lErr, lIndexErr, rIndexErr);
 
   // Return all states and let the component decide how to display
   return {

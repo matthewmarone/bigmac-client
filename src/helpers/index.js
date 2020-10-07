@@ -1,6 +1,8 @@
 export {
-  getMaxNumOfGoodsInForiegnCountry,
-  convertFunds,
+  getHowManyCanYouBuy,
+  getHowManyYouCouldBuyInForiegnCountry,
+  getRealitiveWorthAbroad,
   chooseRandomValueFromArray,
   writeSupportedCountriesToCatch,
+  formatCurrency,
 } from "./helpers";
