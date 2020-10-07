@@ -26,7 +26,7 @@ This test client attempts to demonstrate the following, but not limited too:
    - Comming soon....
 5. Other
    - **Mobile first**, and laid out in such a way that it would be easy to add ADA compliance later.  Matthew is not an ADA Compliance expert, but willing to learn and self teach!
-   - Theming, there is a theme folder where all colors and styles of the app could be globally modified based on the [MaterialUI's Theming](https://material-ui.com/customization/theming/)
+   - Theming, there is a theme folder where all colors and styles of the app could be globally modified based on [MaterialUI's Theming](https://material-ui.com/customization/theming/)
 
 ## Install and Run
 
