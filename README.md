@@ -20,7 +20,7 @@ This test client attempts to demonstrate the following, but not limited too:
 2. A well laid out project
    - Although a simple project, the app was built in such a way that it would be easy to add new "calculator views" quickly in the future, leveraging some of the same components needed for the Big Mac Calculator. 
 3. A Cache first design
-   - This App uses the industry leading [Apollo GraphQL](https://www.apollographql.com/) client to query, cache, and persist the server's response(s).
+   - This App uses the industry leading [Apollo GraphQL](https://www.apollographql.com/docs/react/) client to query, cache, and persist the server's response(s).
    - After the first download the user can continue to refresh the page, even with the server turned off. Upon each refresh, the client attempts a single "base query" to update it's locally persisted cache of the big mac index, however, the client is still able to use the calculator with the previously cached index while it waits for possible changes from the server.
 4. Unit testing 
    - Comming soon....
