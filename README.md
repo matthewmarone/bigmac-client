@@ -22,8 +22,10 @@ This test client attempts to demonstrate the following, but not limited too:
 3. A Cache first design
    - This App uses the industry leading [Apollo GraphQL](https://www.apollographql.com/) client to query, cache, and persist the server's response(s).
    - After the first download the user can continue to refresh the page, even with the server turned off. Upon each refresh, the client attempts a single "base query" to update it's locally persisted cache of the big mac index, however, the client is still able to use the calculator with the previously cached index while it waits for possible changes from the server.
-4. Other
-   - **Mobile first**, and laid out in such a way that it would be easy to add ADA compliance later.  Matthew is not an ADA Compliance expert, but willing to learn!
+4. Unit testing 
+   - Comming soon....
+5. Other
+   - **Mobile first**, and laid out in such a way that it would be easy to add ADA compliance later.  Matthew is not an ADA Compliance expert, but willing to learn and self teach!
    - Theming, there is a theme folder where all colors and styles of the app could be globally modified based on the [MaterialUI's Theming](https://material-ui.com/customization/theming/)
 
 ## Install and Run
