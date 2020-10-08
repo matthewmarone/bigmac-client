@@ -42,7 +42,7 @@ const BigMacCalculator = (props) => {
     !randomCountry;
 
   return isLoading ? (
-    <Loading message={"Finding your location..." + previousIpv4} />
+    <Loading message={"Finding your location..."} />
   ) : (
     <Results
       localCountry={localCountry}
