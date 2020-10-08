@@ -2,8 +2,8 @@ import React from "react";
 import { Typography } from "@material-ui/core";
 
 /**
- * 
- * @param {*} props 
+ *
+ * @param {*} props
  */
 const Header = (props) => {
   return (

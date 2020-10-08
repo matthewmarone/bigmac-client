@@ -1,8 +1,8 @@
 import React from "react";
 
 /**
- * 
- * @param {*} props 
+ *
+ * @param {*} props
  */
 const Footer = (props) => (
   <React.Fragment>

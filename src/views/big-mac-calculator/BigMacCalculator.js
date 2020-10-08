@@ -24,7 +24,7 @@ const BigMacCalculator = (props) => {
   } = randomIndex;
 
   if (ipLookUpError) {
-    // In production we could handle more elegantly the various state errors 
+    // In production we could handle more elegantly the various state errors
     // that useCalState could return.
     console.warn(
       "Couldn't get your current location, defaults to last known",
@@ -42,7 +42,7 @@ const BigMacCalculator = (props) => {
     !randomCountry;
 
   return isLoading ? (
-    <Loading message="Finding your location..." />
+    <Loading message={"Finding your location..." + previousIpv4} />
   ) : (
     <Results
       localCountry={localCountry}
@@ -54,5 +54,6 @@ const BigMacCalculator = (props) => {
     />
   );
 };
+BigMacCalculator.propTypes = {};
 
 export default BigMacCalculator;

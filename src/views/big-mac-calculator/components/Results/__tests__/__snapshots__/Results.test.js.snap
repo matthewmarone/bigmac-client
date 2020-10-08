@@ -1,0 +1,118 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Show Big Mac Calculator Resutls Component 1`] = `
+<body>
+  <div>
+    <div
+      class="MuiGrid-root makeStyles-root-1 MuiGrid-container MuiGrid-spacing-xs-3 MuiGrid-align-items-xs-center MuiGrid-justify-xs-space-evenly"
+    >
+      <div
+        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+      >
+        <div>
+          <p
+            class="MuiTypography-root MuiTypography-body1 MuiTypography-colorPrimary"
+          >
+            You are in 
+            Argentina
+            ! That's a fantastic place.
+          </p>
+          <p
+            class="MuiTypography-root MuiTypography-body1 MuiTypography-colorPrimary"
+          >
+            How much money in 
+            Argentina
+            's currency do you have?
+          </p>
+          <div
+            class="MuiFormControl-root"
+          >
+            <label
+              class="MuiFormLabel-root MuiFormLabel-colorSecondary MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-filled MuiFormLabel-filled Mui-focused Mui-focused"
+              data-shrink="true"
+              for="amountInput"
+            >
+              Amount
+            </label>
+            <div
+              class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-colorSecondary MuiInput-colorSecondary Mui-focused Mui-focused MuiInputBase-formControl MuiInput-formControl MuiInputBase-adornedStart"
+              data-testid="component-MoneyInput"
+            >
+              <div
+                class="MuiInputAdornment-root MuiInputAdornment-filled MuiInputAdornment-positionStart"
+              >
+                <p
+                  class="MuiTypography-root MuiTypography-body1 MuiTypography-colorTextSecondary"
+                >
+                  $
+                </p>
+              </div>
+              <input
+                aria-invalid="false"
+                class="MuiInputBase-input MuiInput-input MuiInputBase-inputAdornedStart"
+                id="amountInput"
+                type="number"
+                value="0"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+      >
+        <div>
+          <p
+            class="MuiTypography-root MuiTypography-body1 MuiTypography-colorPrimary"
+          >
+            Awesome! You could buy 
+            4
+             Big Macs in 
+            Argentina
+            .
+          </p>
+          <p
+            class="MuiTypography-root MuiTypography-body1 MuiTypography-colorPrimary"
+          >
+            Your Dollar Purchasing Parity (PPP) is 
+            6.693711968
+            .
+          </p>
+        </div>
+      </div>
+      <div
+        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+      >
+        <div>
+          <p
+            class="MuiTypography-root MuiTypography-body1 MuiTypography-colorPrimary"
+          >
+            But if you found yourself in 
+            Australia
+            , then you could buy
+             
+            2
+             Big Macs with your 
+            $132.50
+            .
+          </p>
+          <p
+            class="MuiTypography-root MuiTypography-body1 MuiTypography-colorPrimary"
+          >
+            Likewise, your 
+            $132.50
+             from 
+            Argentina
+             feels more like
+             
+            $84.58
+             in 
+            Australia
+            .
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+`;

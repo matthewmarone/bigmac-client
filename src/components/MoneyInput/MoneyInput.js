@@ -11,7 +11,7 @@ const MoneyInput = (props) => {
   const { id, color = "secondary", autoFocus, amount, onChange } = props;
   const handleChange = useCallback(
     (e) => {
-        // Convert back to number
+      // Convert back to number
       onChange(parseFloat(e.target.value));
     },
     [onChange]
@@ -19,6 +19,7 @@ const MoneyInput = (props) => {
   return (
     <Input
       id={id}
+      data-testid="component-MoneyInput"
       type="number"
       color={color}
       autoFocus={autoFocus}

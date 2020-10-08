@@ -27,7 +27,12 @@ function App() {
 
   return (
     <div className="App">
-      <Container className="App-header" component="header" maxWidth="xl">
+      <Container
+        className="App-header"
+        component="header"
+        maxWidth="xl"
+        data-testid="app-Header"
+      >
         <Header />
       </Container>
       <Container
@@ -35,10 +40,16 @@ function App() {
         component="main"
         maxWidth="sm"
         classes={{ root: classes.main }}
+        data-testid="app-Main"
       >
         <BigMacCalculator />
       </Container>
-      <Container className="App-footer" component="footer" maxWidth="xl">
+      <Container
+        className="App-footer"
+        component="footer"
+        maxWidth="xl"
+        data-testid="app-Footer"
+      >
         <Footer />
       </Container>
     </div>
