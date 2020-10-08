@@ -8,11 +8,11 @@ Jump to:
 - [Install and Run](#install-and-run)
 - [Available Scripts](#available-scripts)
 
-The following client was written in [React](https://reactjs.org/) and is built to work with the Node.js/GraphQL [Big Mac Test Server](https://github.com/matthewmarone/big-mac-test-server).  If you haven’t already, please first install and launch the the Big Mac Test Sever [here](https://github.com/matthewmarone/big-mac-test-server).
+The following client is written in [React](https://reactjs.org/) and is built to work with the Node.js/GraphQL [Big Mac Test Server](https://github.com/matthewmarone/big-mac-test-server).  If you haven’t already, please first install and launch the the Big Mac Test Sever [here](https://github.com/matthewmarone/big-mac-test-server).
 
 ## About the App
 
-This test client attempts to demonstrate the following, but not limited too:
+This test client attempts to demonstrate the following, but not limited to:
 
 1. An understanding of the basic concepts of React:
    - Simple modular design using React Components
@@ -26,7 +26,7 @@ This test client attempts to demonstrate the following, but not limited too:
    - Testing React components with Jest
 5. Other
    - **Mobile first**, and laid out in such a way that it would be easy to add ADA compliance later.  Matthew is not an ADA Compliance expert, but willing to learn and/or self teach!
-   - Theming, there is a theme folder where all colors and styles of the app could be globally modified based on [MaterialUI's Theming](https://material-ui.com/customization/theming/)
+   - Theming, there is a theme folder where all colors and styles could be globally modified based on [MaterialUI's Theming](https://material-ui.com/customization/theming/)
 
 ## Install and Run
 
