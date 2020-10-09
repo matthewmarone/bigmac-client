@@ -56,6 +56,7 @@ export const useCalcState = () => {
     }
   }, [randomCountry, setRandomIdxCountry]);
 
+  // Log any erros to console
   if (ipError || lErr || lIndexErr || rIndexErr)
     console.warn(ipError, lErr, lIndexErr, rIndexErr);
 
