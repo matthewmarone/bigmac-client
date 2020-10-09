@@ -24,10 +24,11 @@ const MoneyInput = (props) => {
   );
 
   // Compare numberical amount to formatted Amount, this fixes the issue with
-  // the user putting in 5.50, but as a number that would display without 
+  // the user putting in 5.50, but as a number that would display without
   // the zero (5.5)
-  // eslint-disable-next-line eqeqeq
-  const displayValue = amount == formattedAmount ? formattedAmount : amount;
+  const displayValue =
+    // eslint-disable-next-line eqeqeq
+    amount == formattedAmount ? formattedAmount : `${amount}`;
 
   return (
     <Input
