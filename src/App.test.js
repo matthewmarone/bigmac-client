@@ -5,7 +5,8 @@ import { MockedProvider } from "@apollo/client/testing";
 import { listLatestBigMacIndex } from "graphQL/query";
 import App from "./App";
 
-// Mocks no data being returned.
+// Mocks no data being returned from the GraphQL server, 
+// since we are testing the very initial load state.
 const mocks = [
   {
     request: {
@@ -18,7 +19,7 @@ const mocks = [
   },
 ];
 
-test("The initial state of the app before any querries return", () => {
+test("The initial state of the app loads without crashing", () => {
   const { getByTestId } = render(
     <MockedProvider mocks={mocks} addTypename={false}>
       <App />

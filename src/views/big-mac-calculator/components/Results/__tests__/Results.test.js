@@ -3,8 +3,8 @@ import { render, fireEvent } from "@testing-library/react";
 import Results from "./../Results";
 import { act } from "react-dom/test-utils";
 
-test("Show Big Mac Calculator Resutls Component", async () => {
-  // This is just made up data
+test("Big Mac Calculator Resutls Component", async () => {
+  // The necessary data to calculate, from big-mac-index.csv
   const props = {
     localCountry: "Argentina",
     localPrice: 33,
@@ -13,6 +13,7 @@ test("Show Big Mac Calculator Resutls Component", async () => {
     randomCountry: "Australia",
     dollarPriceRandom: 3.743655,
   };
+  const INPUT = "132.50"; // The users input
 
   await act(async () => {
     const { baseElement, getByTestId } = render(<Results {...props} />);
@@ -20,7 +21,7 @@ test("Show Big Mac Calculator Resutls Component", async () => {
       "input"
     );
     //Sim having the user input 23
-    fireEvent.change(userInput, { target: { value: "132.50" } });
+    fireEvent.change(userInput, { target: { value: INPUT } });
     await new Promise((resolve) => setTimeout(resolve, 0)); // wait for response
     expect(baseElement).toMatchSnapshot();
   });
