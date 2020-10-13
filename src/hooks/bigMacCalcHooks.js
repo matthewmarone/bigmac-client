@@ -7,10 +7,8 @@ import {
 } from "graphQL/query";
 import { chooseRandomValueFromArray as chooseCountry } from "helpers";
 
-
-
 /**
- *
+ * Hook to call getLocation(ip: String!), use cache first
  * @param {*} ipv4 - ip address to resolve location information for
  */
 export const useLocation = (ipv4) => {
@@ -34,7 +32,7 @@ export const useLocation = (ipv4) => {
 };
 
 /**
- *
+ * Hook to call listSupportedCountries, uses cache first
  */
 export const useSupportedCountries = () => {
   const { data } = useQuery(listSupportedCountriesGQL);
@@ -46,8 +44,10 @@ export const useSupportedCountries = () => {
 };
 
 /**
- *
- * @param {*} excludeList
+ * Hook to choose a country at random, based on countries
+ * returned by useSupportedCountries.
+ * @param {*} excludeList - array of countries not to return
+ * @see useSupportedCountries
  */
 export const useRandomCountry = (excludeList = []) => {
   const [exList, setExludeList] = useState(excludeList);
@@ -89,9 +89,13 @@ export const useCountryBigMacIdx = (_country) => {
   }, [country, getIndex]);
 
   useEffect(() => {
+    let isMounted = true;
     // Set bigMacIndex after lookup
     const { getLatestBigMacIndex } = data || {};
-    if (getLatestBigMacIndex) setIndex({ ...getLatestBigMacIndex });
+    if (isMounted && getLatestBigMacIndex)
+      setIndex({ ...getLatestBigMacIndex });
+
+    return () => (isMounted = false);
   }, [data, getIndex]);
 
   return [bigMacIndex, setCountry, loading, error];
