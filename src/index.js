@@ -9,6 +9,7 @@ import theme from "theme";
 import "fontsource-roboto";
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 import { persistCache } from "apollo3-cache-persist";
+import AppContext from "AppContext";
 
 (async () => {
   // Creates a new local cache
@@ -50,7 +51,9 @@ import { persistCache } from "apollo3-cache-persist";
       <CssBaseline />
       <ThemeProvider theme={theme}>
         <ApolloProvider client={client}>
-          <App />
+          <AppContext>
+            <App />
+          </AppContext>
         </ApolloProvider>
       </ThemeProvider>
     </React.StrictMode>,

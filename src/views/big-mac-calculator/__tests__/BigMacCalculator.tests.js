@@ -8,12 +8,23 @@ import {
   getLatestBigMacIndex,
   getLocation,
 } from "graphQL/query";
+import { Context } from "AppContext";
 
 test("BigMacCalculator's transition from displaying Loading to displaying Results", async () => {
   await act(async () => {
     const { getByText, getByTestId } = render(
       <MockedProvider mocks={mocks} addTypename={false}>
-        <BigMacCalculator />
+        <Context.Provider
+          value={[
+            {
+              ipV4: "148.102.115.175",
+              previousIpv4: "148.102.115.175",
+              ipLookUpError: null,
+            },
+          ]}
+        >
+          <BigMacCalculator />
+        </Context.Provider>
       </MockedProvider>
     );
 

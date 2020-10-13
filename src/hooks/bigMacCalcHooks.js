@@ -1,5 +1,4 @@
 import { useState, useEffect, useMemo } from "react";
-import PublicIp from "public-ip";
 import { useQuery, useLazyQuery } from "@apollo/client";
 import {
   listSupportedCountries as listSupportedCountriesGQL,
@@ -8,31 +7,7 @@ import {
 } from "graphQL/query";
 import { chooseRandomValueFromArray as chooseCountry } from "helpers";
 
-/**
- * Resolves the clients current public IP Address.
- * This hook also saves the current ip to local storage,
- * allowing for the possiblilty of offline use.
- */
-export const useIPAddress = () => {
-  const localStorageKey = "lastIpv4";
-  const [ipv4, setIpv4] = useState();
-  const [error, setError] = useState(null);
-  const [previousIpv4] = useState(localStorage.getItem(localStorageKey));
-  const isLoading = !ipv4 && !error;
 
-  useEffect(() => {
-    if (!ipv4 && !error) {
-      PublicIp.v4()
-        .then((v) => {
-          setIpv4(v);
-          localStorage.setItem(localStorageKey, v);
-        })
-        .catch((e) => setError(e));
-    }
-  }, [error, ipv4]);
-
-  return [ipv4, isLoading, error, previousIpv4];
-};
 
 /**
  *
@@ -45,8 +20,11 @@ export const useLocation = (ipv4) => {
   const [getLocal, { data, loading, error }] = useLazyQuery(getLocationGQL);
 
   useEffect(() => {
+    let isMounted = true;
     // Query new loaction when client ip changes
-    if (ip && getLocal) getLocal({ variables: { ip } });
+    if (isMounted && ip && getLocal) getLocal({ variables: { ip } });
+
+    return () => (isMounted = false);
   }, [ip, getLocal]);
 
   // console.log(ip, data, loading, error);
@@ -103,8 +81,11 @@ export const useCountryBigMacIdx = (_country) => {
   const [getIndex, { data, loading, error }] = useLazyQuery(getLtsBigMacIdxGQL);
 
   useEffect(() => {
+    let isMounted = true;
     // Run GraphQL query on each update of country
-    if (country) getIndex({ variables: { country } });
+    if (isMounted && country) getIndex({ variables: { country } });
+
+    return () => (isMounted = false);
   }, [country, getIndex]);
 
   useEffect(() => {

@@ -1,10 +1,5 @@
 import { useEffect } from "react";
-import {
-  useIPAddress,
-  useLocation,
-  useRandomCountry,
-  useCountryBigMacIdx,
-} from "hooks";
+import { useLocation, useRandomCountry, useCountryBigMacIdx } from "hooks";
 
 /**
  * This hook reacts to changes in user location to produce the clients
@@ -13,13 +8,9 @@ import {
  * along the way are also returned.
  *
  */
-export const useCalcState = () => {
-  // Looks up clents public ipv4, returns cached ip immediately
-  const [ipv4, , ipError, previousIpv4] = useIPAddress();
+export const useCalcState = (ipV4) => {
   // Querries bigmac-server (ip-vigilante), or locally persisted cache if availble
-  const [{ country: localCountry }, setIpv4, , lErr] = useLocation(
-    previousIpv4
-  );
+  const [{ country: localCountry }, setIpV4, , lErr] = useLocation(ipV4);
   // Hook to choose a random country, excluding the clients current
   const [randomCountry, setExcludeList] = useRandomCountry([localCountry]);
   // Querries bigmac-server, or persisted cache, to look up countries pricing
@@ -31,12 +22,6 @@ export const useCalcState = () => {
   const [randomIndex, setRandomIdxCountry, , rIndexErr] = useCountryBigMacIdx(
     randomCountry
   );
-
-  // This effect runs when the clients ip address changes or becomes known
-  useEffect(() => {
-    // Update the useLocation hook
-    if (ipv4 || previousIpv4) setIpv4(ipv4 || previousIpv4);
-  }, [ipv4, previousIpv4, setIpv4]);
 
   // Runs when the useLocation hook returns a location
   useEffect(() => {
@@ -57,20 +42,20 @@ export const useCalcState = () => {
   }, [randomCountry, setRandomIdxCountry]);
 
   // Log any erros to console
-  if (ipError || lErr || lIndexErr || rIndexErr)
-    console.warn(ipError, lErr, lIndexErr, rIndexErr);
+  if (lErr || lIndexErr || rIndexErr) console.warn(lErr, lIndexErr, rIndexErr);
 
-  // Return all states and let the component decide how to display
-  return {
-    localIndex,
-    randomIndex,
-    ipv4,
-    previousIpv4,
-    localCountry,
-    randomCountry,
-    ipLookUpError: ipError,
-    locationLookUpError: lErr,
-    localCountryIndexError: lIndexErr,
-    randomCountryIndexError: rIndexErr,
-  };
+  // Return all states to let the component decide how to display
+  // and a way to set a new ipv4 address
+  return [
+    {
+      localIndex,
+      randomIndex,
+      localCountry,
+      randomCountry,
+      locationLookUpError: lErr,
+      localCountryIndexError: lIndexErr,
+      randomCountryIndexError: rIndexErr,
+    },
+    setIpV4,
+  ];
 };

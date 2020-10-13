@@ -1,15 +1,23 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
+import { Context } from "AppContext";
 import { Results, Loading } from "./components";
 import { useCalcState } from "./state";
 
 const BigMacCalculator = (props) => {
-  // Reacts to clients location to provide all of BigMacCalculator's state
-  const {
-    localIndex,
-    randomIndex,
-    ipLookUpError,
-    previousIpv4,
-  } = useCalcState();
+  // Get the users current IP from the AppContext
+  const [appContext] = useContext(Context);
+  const { ipV4, previousIpv4, ipLookUpError } = appContext;
+  // Reacts to clients ip to provide all of BigMacCalculator's state
+  const [{ localIndex, randomIndex }, setIp] = useCalcState(
+    ipV4 || previousIpv4
+  );
+
+  useEffect(() => {
+    // Update useCalcState if IP address changes
+    // previousIpv4 will be immediatly availble for returning clients
+    if (ipV4 || previousIpv4) setIp(ipV4 || previousIpv4);
+  }, [ipV4, previousIpv4, setIp]);
+
   // Parsing out relevant data current country's big mac index
   const {
     country: localCountry,
