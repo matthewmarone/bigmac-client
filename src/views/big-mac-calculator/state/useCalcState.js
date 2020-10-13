@@ -11,9 +11,9 @@ import { useLocation, useRandomCountry, useCountryBigMacIdx } from "hooks";
 export const useCalcState = (ipV4) => {
   // Querries bigmac-server (ip-vigilante), or locally persisted cache if availble
   const [{ country: localCountry }, setIpV4, , lErr] = useLocation(ipV4);
-  // Hook to choose a random country, excluding the clients current
+  // Hook to choose a random country, excluding the client's current
   const [randomCountry, setExcludeList] = useRandomCountry([localCountry]);
-  // Querries bigmac-server, or persisted cache, to look up countries pricing
+  // Querries bigmac-server, or persisted cache, to look up country's pricing
   // and exchange rates
   const [localIndex, setLocalIdxCountry, , lIndexErr] = useCountryBigMacIdx(
     localCountry
@@ -26,7 +26,7 @@ export const useCalcState = (ipV4) => {
   // Runs when the useLocation hook returns a location
   useEffect(() => {
     if (localCountry) {
-      // Update useRandomCountry
+      // Update useRandomCountry's country filter
       setExcludeList([localCountry]);
       // update useCountryBigMacIndex for local country
       setLocalIdxCountry(localCountry);
@@ -45,7 +45,7 @@ export const useCalcState = (ipV4) => {
   if (lErr || lIndexErr || rIndexErr) console.warn(lErr, lIndexErr, rIndexErr);
 
   // Return all states to let the component decide how to display
-  // and a way to set a new ipv4 address
+  // and setIpV4 to allow for a change in client location
   return [
     {
       localIndex,

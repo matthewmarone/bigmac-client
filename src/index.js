@@ -42,7 +42,7 @@ import AppContext from "AppContext";
   // server.  This client also stores results in persisted cache
   // allowing qurries to be quickly run off the cache after it is hydrated
   const client = new ApolloClient({
-    uri: "http://localhost:4000/",
+    uri: "http://localhost:4000/", // The location of the bigmac-server
     cache: cache,
   });
 

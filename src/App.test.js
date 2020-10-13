@@ -28,6 +28,7 @@ test("The initial state of the app loads without crashing", () => {
       </AppContext>
     </MockedProvider>
   );
+  // Shows that the app starts with the header, loading component, and footer
   expect(getByTestId("app-Header")).toBeVisible();
   expect(getByTestId("app-Header")).toHaveTextContent("The Big Mac Test");
   expect(getByTestId("app-Main")).toBeVisible();

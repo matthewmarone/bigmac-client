@@ -7,7 +7,8 @@ const BigMacCalculator = (props) => {
   // Get the users current IP from the AppContext
   const [appContext] = useContext(Context);
   const { ipV4, previousIpv4, ipLookUpError } = appContext;
-  // Reacts to clients ip to provide all of BigMacCalculator's state
+  // Reacts to client's ip to provide all of BigMacCalculator's state
+  // previousIpv4 is already availble for returning clients
   const [{ localIndex, randomIndex }, setIp] = useCalcState(
     ipV4 || previousIpv4
   );
@@ -18,7 +19,7 @@ const BigMacCalculator = (props) => {
     if (ipV4 || previousIpv4) setIp(ipV4 || previousIpv4);
   }, [ipV4, previousIpv4, setIp]);
 
-  // Parsing out relevant data current country's big mac index
+  // Parsing out relevant data from current country's big mac index
   const {
     country: localCountry,
     localPrice,
@@ -33,7 +34,7 @@ const BigMacCalculator = (props) => {
 
   if (ipLookUpError) {
     // In production we could handle more elegantly the various state errors
-    // that useCalState could return.
+    // that useCalState could return too.
     console.warn(
       "Couldn't get your current location, defaults to last known",
       previousIpv4

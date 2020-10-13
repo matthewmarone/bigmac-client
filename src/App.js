@@ -18,16 +18,21 @@ const useStyles = makeStyles({
 function App() {
   const classes = useStyles();
   const [, dispatch] = useContext(Context);
-  // Get the users current IP and save in the App's context
+  // Get the users current IP and dispatches the update to AppContext
   // Hook returns cached ip (priviousIpv4) immediately, if avail.
   const [ipV4, , ipError, previousIpv4] = useIPAddress();
   // Hydrates/refreshes the persisted cache with server data
+  // This base query can be used to programatically fill in the 
+  // responses for all others, except getLocation since that 
+  // would require every single ip address in the world to be 
+  // localy store.  However, each new getLocation(ip) is persisted
   const { data, client } = useQuery(listLatestBigMacIndexGQL, {
     fetchPolicy: "network-only",
   });
 
   useEffect(() => {
     // Saves the supported countries to catch in it's on query
+    // Programatically breaking out the above base query
     if (data && client) writeSupportedCountriesToCatch(data, client);
   }, [client, data]);
 

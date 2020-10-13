@@ -13,9 +13,11 @@ import { Context } from "AppContext";
 test("BigMacCalculator's transition from displaying Loading to displaying Results", async () => {
   await act(async () => {
     const { getByText, getByTestId } = render(
+      // Mock provider provides test responses from the server
       <MockedProvider mocks={mocks} addTypename={false}>
         <Context.Provider
           value={[
+            // Setting the apps state to an ip address the mock responses will understand
             {
               ipV4: "148.102.115.175",
               previousIpv4: "148.102.115.175",
